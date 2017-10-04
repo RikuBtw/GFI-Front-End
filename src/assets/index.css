@@ -118,6 +118,7 @@ html, body {
   justify-content: center;
   display: flex;
   margin-right: 0;
+  outline: none;
 }
 
 .login-input{

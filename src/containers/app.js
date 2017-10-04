@@ -22,8 +22,9 @@ class App extends Component {
       this.setState({appType: view});
     }
 
+    //TODO Check if the user is an unique user
     const Checklogin = () => {
-      const isLoggedIn = sessionStorage.getItem('id') === 'test';
+      const isLoggedIn = sessionStorage.getItem('id') != null;
       if (!isLoggedIn) {
         return <Login />;
       }

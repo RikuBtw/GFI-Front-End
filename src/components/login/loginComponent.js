@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var _ = require('lodash');
 
 class loginComponent extends Component {
   constructor(props) {
@@ -24,15 +25,27 @@ class loginComponent extends Component {
       return regex.test(email);
     }
 
-    const validateEmail = (email) => {
-      return true;
+    const requestLogin = () => {
+      return fetch('http://192.168.43.97:8080/user')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        return responseJson;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     }
 
-    const validatePassword = (password) => {
-      return true;
+    const validateEmail = (emailData, email) => {
+      return emailData===email;
+    }
+
+    const validatePassword = (passwordData, password) => {
+      return passwordData===password;
     }
 
     const confirmLogin = (e) => {
+
       e.preventDefault();
       if(this.state.email === "" || this.state.password === ""){
         return;
@@ -40,12 +53,21 @@ class loginComponent extends Component {
       if(!validateEmailFormat(this.state.email)){
         return;
       }
-      if(!validateEmail(this.state.email) || !validatePassword(this.state.password)){
-        return;
-      }
-      sessionStorage.setItem("id","test");
-      window.location.reload();
-    };
+      return fetch('http://192.168.43.97:8080/user')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        _.forEach(responseJson, (user)=>{
+          if(!validateEmail(user.mail, this.state.email+"@gfi.fr") || !validatePassword(user.password, this.state.password)){
+            return;
+          }
+          sessionStorage.setItem("id",user.idSalesPerson);
+          window.location.reload();
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
 
     return (
       <div className="login-component-helper">
