@@ -28,10 +28,10 @@ class menuComponent extends Component {
          return(
               <div className="menu-open-helper">
                 <div className="menu-open-container">
-                  <p onClick={() => {changeApp("planning")}}>Mes rendez-vous</p>
-                  <p onClick={() => {changeApp("need")}}>Mes demandes</p>
-                  <p onClick={() => {changeApp("result")}}>Mes Résultats</p>
-                  <p onClick={() => {disconnect()}}>Se déconnecter</p>
+                  <p onClick={() => {changeApp("planning")}}>My Plannings</p>
+                  <p onClick={() => {changeApp("need")}}>My Proposals</p>
+                  <p onClick={() => {changeApp("result")}}>My Results</p>
+                  <p onClick={() => {disconnect()}}>Log Out</p>
                 </div>
               </div>
          );
@@ -45,9 +45,9 @@ class menuComponent extends Component {
         if (this.state.menuPresent) {
           return(
             <nav className="menu-nav">
-              <span className={this.state.appType === "planning" ? "selected" : ""} onClick={() => {changeApp("planning")}}>Mes rendez-vous</span>
-              <span className={this.state.appType === "need" ? "selected" : ""} onClick={() => {changeApp("need")}}>Mes demandes</span>
-              <span className={this.state.appType === "result" ? "selected" : ""} onClick={() => {changeApp("result")}}>Mes résultats</span>
+              <span className={this.state.appType === "planning" ? "selected" : ""} onClick={() => {changeApp("planning")}}>My Plannings</span>
+              <span className={this.state.appType === "need" ? "selected" : ""} onClick={() => {changeApp("need")}}>My Proposals</span>
+              <span className={this.state.appType === "result" ? "selected" : ""} onClick={() => {changeApp("result")}}>My Results</span>
             </nav>
           );
         }else{
@@ -59,8 +59,12 @@ class menuComponent extends Component {
     return(
         <header>
           <div className="menu-button-container">
+            <div className="menu-title">Remember Meet</div>
             <button id="menu-button" onClick={() => {triggerMenu()}}></button>
             <Showmenu />
+          </div>
+          <div className="menu-search">
+            <input type="search" placeholder="Looking for a client? A proposal?"></input>
           </div>
           <Shownav/>
         </header>

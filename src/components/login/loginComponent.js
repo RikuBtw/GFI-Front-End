@@ -48,20 +48,26 @@ class loginComponent extends Component {
     };
 
     return (
-      <div className="login-helper">
-        <div className="login-logo"></div>
+      <div className="login-component-helper">
+        <div className="app-title-container">
+          <div className="app-title">Remember Meet</div>
+        </div>
         <div className="login-container">
           <div className="login-component">
             <form>
+              <div className="login-title">Please log in:</div>
+              <div className="login-subtitle">Your Mail :</div>
               <div id="login-email">
-                <input className="login-input" type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} placeholder="Adress" />
+                <input className="login-input" type="text" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
                 <div id="login-extension">@gfi.fr</div>
               </div>
+              <div className="login-subtitle">Your Password :</div>
               <div id="login-password">
-                <input className="login-input" type="password" value={this.state.password} onChange={this.handlePasswordChange}  name="password" placeholder="Password" />
+                <input className="login-input" type="password" value={this.state.password} onChange={this.handlePasswordChange}  name="password" />
               </div>
-              <br />
-              <button id="login-button" onClick={confirmLogin}>Login</button>
+              <div className="login-helper">
+                <button id="login-button" onClick={confirmLogin}>Ok</button>
+              </div>
             </form>
           </div>
         </div>
