@@ -99,7 +99,7 @@ class addComponent extends Component {
           <div className="add-content">
             <div className="add-line"><span>First name:*</span> <input type="text" name="contactFirstName" value={this.state.contactFirstName} onChange={(e) => this.handleChange(e)}/></div>
             <div className="add-line"><span>Last name:*</span> <input type="text" name="contactLastName" value={this.state.contactLastName} onChange={(e) => this.handleChange(e)}/></div>
-            <div className="add-line"><span>Email:*</span> <input type="text" name="contactEmail" value={this.state.contactEmail} onChange={(e) => this.handleChange(e)}/></div>
+            <div className="add-line"><span>Email:*</span> <input type="text" name="contactMail" value={this.state.contactMail} onChange={(e) => this.handleChange(e)}/></div>
             <div className="add-line"><span>Phone:</span> <input type="text" name="contactPhone" value={this.state.contactPhone} onChange={(e) => this.handleChange(e)}/></div>
           </div>
         <div className="add-title">Proposal</div>
