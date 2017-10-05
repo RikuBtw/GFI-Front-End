@@ -12,6 +12,11 @@ class detailProposalComponent extends Component {
       this.setState({type: "list"});
       this.props.callbackParent("list");
     }
+    const dateBegin = new Date(listApplications[this.state.detailIndex].beginning);
+    const dateBeginString = new Date(listApplications[this.state.detailIndex].beginning).toLocaleDateString();
+    const dateEnding = new Date(listApplications[this.state.detailIndex].ending);
+    const days = Math.abs(dateBegin.getDate()-dateEnding.getDate());
+    const months = Math.abs(dateBegin.getMonth()-dateEnding.getMonth());
     return (
       <div>
         <button className="back-button" onClick={() => { showList()}}></button>
@@ -23,8 +28,8 @@ class detailProposalComponent extends Component {
               <span>Description:</span> <p className="detail-content-lowercase">{listApplications[this.state.detailIndex].description}</p><br/>
               <span>3 Main Key Success Factors:</span><br/>
               <p className="detail-content-lowercase">{listApplications[this.state.detailIndex].keySuccess}</p><br/>
-              <span>Starts the latest:</span> <p>{listApplications[this.state.detailIndex].beginning}</p><br/>
-              <span>Duration:</span> <p>{}</p> <span>Month(s) and</span> <p>{}</p> <span>days(s)</span><br/>
+              <span>Starts the latest:</span> <p>{dateBeginString}</p><br/>
+              <span>Duration:</span> <p>{months}</p> <span>Month(s) and</span> <p>{days}</p> <span>days(s)</span><br/>
               <span>Localisation:</span> <p>{listApplications[this.state.detailIndex].location}</p><br/>
               <span>Status:</span> <p>{listApplications[this.state.detailIndex].status}</p><br/>
             </div>
@@ -40,7 +45,6 @@ class detailProposalComponent extends Component {
               <span>Price</span> <p>{listApplications[this.state.detailIndex].price}</p> <span>Euros</span><br/>
               <span>Mail Op Director</span> <p>{listApplications[this.state.detailIndex].directorMail}</p><br/>
             </div>
-          <button className="edit-button"></button>
         </div>
       </div>
     );

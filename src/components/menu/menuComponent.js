@@ -4,13 +4,21 @@ class menuComponent extends Component {
   constructor(props) {
     super(props);
     this.state = props.state;
-    this.setState({toggleMenu: false});
   }
+
+  handleChange(e){
+   this.setState({[e.target.name]: e.target.value})
+  }
+
   render() {
+
+    const search = (search) => {
+      this.props.callbackParent(this.state.appType, search);
+    }
 
     const changeApp = (view) => {
       this.setState({appType: view});
-      this.props.callbackParent(view);
+      this.props.callbackParent(view, "");
     }
 
     const disconnect = () => {
@@ -63,7 +71,8 @@ class menuComponent extends Component {
             <Showmenu />
           </div>
           <div className="menu-search">
-            <input type="search" placeholder="Looking for a client? A proposal?"></input>
+            <input id="searchBar" type="search" placeholder="Looking for a contact? A proposal?" name="searchBar" value={this.state.searchBar} onChange={(e) => this.handleChange(e)}></input>
+            <button onClick={() => {search(this.state.searchBar)}}></button>
           </div>
           <Shownav/>
         </header>

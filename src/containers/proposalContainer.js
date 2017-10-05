@@ -5,7 +5,7 @@ import Detail from '../components/proposal/detailProposalComponent';
 class proposalContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {type: "list", index: 0, list: [], sortType: "status", loaded:false};
+    this.state = props.state;
   }
 
   onChildChanged(newState, newIndex) {
@@ -14,7 +14,7 @@ class proposalContainer extends Component {
 
   render() {
     const requestList = () => {
-      return fetch('http://192.168.43.97:8080/getProposals/'+ sessionStorage.getItem('id') +'/'+ this.state.sortType)
+      return fetch('http://192.168.43.97:8080/getProposal/'+ sessionStorage.getItem('id') +'/'+ this.state.sortProposalType +'?q=' +(this.state.searchRequest || ""))
       .then((response) => response.json()
       .then((responseJson) => {
         this.setState({list: responseJson});
@@ -25,7 +25,7 @@ class proposalContainer extends Component {
     }
 
     const changeSort = (filter) => {
-      this.setState({sortType: filter, loaded: false});
+      this.setState({sortProposalType: filter, loaded: false});
     }
 
     const Display = () => {
@@ -51,10 +51,10 @@ class proposalContainer extends Component {
       if(this.state.type === "list"){
         return (
           <nav className="proposal-filter-nav">
-          <span className={this.state.sortType === "status" ? "selected" : ""} onClick={() => {changeSort("status")}}>By Status</span>
-            <span className={this.state.sortType === "beginning" ? "selected" : ""} onClick={() => {changeSort("beginning")}}>By Date</span>
-            <span className={this.state.sortType === "company" ? "selected" : ""} onClick={() => {changeSort("company")}}>By Customer</span>
-            <span className={this.state.sortType === "proposalTitle" ? "selected" : ""} onClick={() => {changeSort("proposalTitle")}}>By Title</span>
+          <span className={this.state.sortProposalType === "status" ? "selected" : ""} onClick={() => {changeSort("status")}}>By Status</span>
+            <span className={this.state.sortProposalType === "proposalDate" ? "selected" : ""} onClick={() => {changeSort("proposalDate")}}>By Date</span>
+            <span className={this.state.sortProposalType === "company" ? "selected" : ""} onClick={() => {changeSort("company")}}>By Customer</span>
+            <span className={this.state.sortProposalType === "proposalTitle" ? "selected" : ""} onClick={() => {changeSort("proposalTitle")}}>By Title</span>
           </nav>
         );
       }else{

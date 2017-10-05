@@ -210,17 +210,29 @@ header{
   border-radius: 99em;
   background-color: #fff;
   outline: none;
+  padding: 0;
 }
 
 .menu-search{
   display: flex;
   justify-content: center;
 }
+.menu-search button{
+  width: 10%;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  border: 0;
+  background-image: url('./search-logo.svg');
+  background-repeat: no-repeat;
+  background-size: 60% 60%;
+  background-position: 50% 50%;
+}
 
 .menu-search input[type="search"]{
   border: 0;
   height: 40px;
-  width: 90%;
+  width: 80%;
   letter-spacing: 0.15em;
   font-size: 0.8em;
   background-color: #fff;

@@ -5,7 +5,7 @@ import Detail from '../components/customer/detailCustomerComponent';
 class customerContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {type: "list", index: 0, list: [], loaded:false, sortType:"company", listProposal: []};
+    this.state = props.state;
   }
 
   onChildChanged(newState, newIndex) {
@@ -14,7 +14,7 @@ class customerContainer extends Component {
 
   render() {
     const requestList = () => {
-      return fetch('http://192.168.43.97:8080/customers/'+this.state.sortType)
+      return fetch('http://192.168.43.97:8080/customers/'+this.state.sortCustomerType + '?q=' + (this.state.searchRequest ||""))
       .then((response) => response.json()
       .then((responseJson) => {
         this.setState({list: responseJson});
@@ -25,15 +25,15 @@ class customerContainer extends Component {
     }
 
     const changeSort = (filter) => {
-      this.setState({sortType: filter, loaded: false});
+      this.setState({sortCustomerType: filter, loaded: false});
     }
 
     const Filter = () => {
       if(this.state.type === "list"){
         return (
           <nav className="customer-filter-nav">
-            <span className={this.state.sortType === "company" ? "selected" : ""} onClick={() => {changeSort("company")}}>By Company</span>
-            <span className={this.state.sortType === "contact" ? "selected" : ""} onClick={() => {changeSort("contact")}}>By Contact</span>
+            <span className={this.state.sortCustomerType === "company" ? "selected" : ""} onClick={() => {changeSort("company")}}>By Company</span>
+            <span className={this.state.sortCustomerType === "contact" ? "selected" : ""} onClick={() => {changeSort("contact")}}>By Contact</span>
           </nav>
         );
       }else{

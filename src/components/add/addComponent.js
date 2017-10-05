@@ -13,10 +13,11 @@ class addComponent extends Component {
   render() {
 
     if (!this.state.loaded) {
-      fetch('http://192.168.43.97:8080/customers/company')
+      fetch('http://192.168.43.97:8080/customers/company?q=')
       .then((response) => response.json()
       .then((responseJson) => {
         this.setState({listCompany: responseJson});
+        this.setState({proposalCompany: this.state.listCompany[0].siret});
       }))
       .catch((error) => {
         console.error(error);
@@ -24,13 +25,17 @@ class addComponent extends Component {
       this.setState({loaded: true});
     }
 
+    const today = new Date();
+    console.log(new Date(this.state.proposalDate));
 
     const addNewProposal = () => {
+      const begin = new Date(this.state.proposalDate);
+
       const obj = {
         "idSalesPerson" : sessionStorage.getItem('id'),
         "idDirOps" : 3,
         "idCustomer" : this.state.proposalCompany,
-        "proposalDate" : "2017/10/05",
+        "proposalDate" : today.getFullYear() + "/" + ('0' + (today.getMonth()+1)).slice(-2) + "/" + ('0' + (today.getDate()+1)).slice(-2) ,
         "interlocutorLastName" : this.state.contactLastName,
         "interlocutorFirstName" : this.state.contactFirstName,
         "interlocutorMail" : this.state.contactMail,
@@ -38,20 +43,20 @@ class addComponent extends Component {
         "proposalTitle" : this.state.proposalTitle,
         "description" : this.state.proposalDescription,
         "keySuccess" :  this.state.proposalFactor1 + "\n" + this.state.proposalFactor2 + "\n" + this.state.proposalFactor3,
-        "beginning" : this.state.proposalDate,
+        "beginning" : begin.getFullYear() + "/" + ('0' + (begin.getMonth()+1)).slice(-2) + "/" + ('0' + (begin.getDate())).slice(-2),
+        "ending": "2017/11/10",
         "location" : this.state.proposalLocation,
         "status": "Open",
         "price" : this.state.opPrice,
       };
-      console.log(obj);
-      /*fetch('http://192.168.43.97:8080/addProposal', {
+      fetch('http://192.168.43.97:8080/addProposal', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(obj)
-      })*/
+      })
 
     }
     const listCustomer = this.state.listCompany;
@@ -63,7 +68,7 @@ class addComponent extends Component {
               <select name="proposalCompany" value={this.state.proposalCompany} onChange={(e) => this.handleChange(e)}>
                 {listCustomer.map(function(customer, index){
                     return (
-                      <option value={customer.siret}>{customer.company}</option>
+                      <option key={index} value={customer.siret}>{customer.company}</option>
                     );
                   }
                 )}

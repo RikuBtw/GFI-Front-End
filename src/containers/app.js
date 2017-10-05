@@ -10,15 +10,14 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {appType: "proposal", menuPresent: true};
+    this.state = {appType: "proposal", menuPresent: true, type: "list", index: 0, list: [], sortProposalType: "status", loaded:false, newSearch:"", sortCustomerType:"company", listProposal: []};
   }
 
-  onChildChanged(newType) {
-    this.setState({appType: newType});
+  onChildChanged(newType, newSearch) {
+    this.setState({appType: newType, searchRequest: newSearch});
   }
 
   render() {
-
     const changeApp = (view) => {
       this.setState({appType: view});
     }
@@ -34,8 +33,8 @@ class App extends Component {
           return (
             <div>
               <Menu state={this.state}
-                      callbackParent={(newType) => this.onChildChanged(newType)}/>
-              <Customer />
+                      callbackParent={(newType, newSearch) => this.onChildChanged(newType, newSearch)}/>
+              <Customer state={this.state}/>
             </div>
           );
           break;
@@ -43,8 +42,8 @@ class App extends Component {
           return (
             <div>
               <Menu state={this.state}
-                      callbackParent={(newType) => this.onChildChanged(newType)}/>
-              <Proposal />
+                      callbackParent={(newType, newSearch) => this.onChildChanged(newType, newSearch)}/>
+              <Proposal state={this.state}/>
               <button className="add-button" onClick={() => {changeApp("add")}}></button>
             </div>
           );

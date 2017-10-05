@@ -14,14 +14,16 @@ class listProposalComponent extends Component {
       this.props.callbackParent("detail", index);
     }
 
+
     return (
       <div className="list-component">
         <ul>
           {listApplications.map(function(proposal, index){
+              const dateProposal = new Date(proposal.proposalDate).toLocaleDateString();
               return (
                 <li key= {index} onClick={() => { showDetail(index)}}>
                   <div className="proposal-list-top">
-                    <p>{proposal.proposalDate}</p>
+                    <p>{dateProposal}</p>
                     <p>-</p>
                     <p>{proposal.company}</p>
                   </div>
