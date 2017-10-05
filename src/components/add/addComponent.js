@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class addComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {proposalCompany: '', proposalTitle:'', proposalDescription:'', proposalFactor1: '', proposalFactor2: '', proposalFactor3: '' };
+    this.state = {listCompany:[] ,loaded:false, proposalCompany: '', proposalTitle:'', proposalDescription:'', proposalFactor1: '', proposalFactor2: '', proposalFactor3: '' };
   }
 
   handleChange(e){
@@ -12,40 +12,63 @@ class addComponent extends Component {
 
   render() {
 
+    if (!this.state.loaded) {
+      fetch('http://192.168.43.97:8080/customers/company')
+      .then((response) => response.json()
+      .then((responseJson) => {
+        this.setState({listCompany: responseJson});
+      }))
+      .catch((error) => {
+        console.error(error);
+      });
+      this.setState({loaded: true});
+    }
+
+
     const addNewProposal = () => {
-      console.log(this.state);
-      fetch('http://192.168.43.97:8080/addProposal', {
+      const obj = {
+        "idSalesPerson" : sessionStorage.getItem('id'),
+        "idDirOps" : 3,
+        "idCustomer" : this.state.proposalCompany,
+        "proposalDate" : "2017/10/05",
+        "interlocutorLastName" : this.state.contactLastName,
+        "interlocutorFirstName" : this.state.contactFirstName,
+        "interlocutorMail" : this.state.contactMail,
+        "interlocutorPhone" : this.state.contactPhone,
+        "proposalTitle" : this.state.proposalTitle,
+        "description" : this.state.proposalDescription,
+        "keySuccess" :  this.state.proposalFactor1 + "\n" + this.state.proposalFactor2 + "\n" + this.state.proposalFactor3,
+        "beginning" : this.state.proposalDate,
+        "location" : this.state.proposalLocation,
+        "status": "Open",
+        "price" : this.state.opPrice,
+      };
+      console.log(obj);
+      /*fetch('http://192.168.43.97:8080/addProposal', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-        	"idSalesPerson" : 3,
-        	"idDirOps" : 3,
-        	"idCustomer" : "1010593246521",
-        	"proposalDate" : "2017-10-10",
-        	"interlocutorLastName" : "GHFFFUFU ",
-        	"interlocutorFirstName" : "Franz",
-        	"interlocutorMail" : "inter@mail.com",
-        	"interlocutorPhone" : "0658953214",
-        	"proposalTitle" : "Title",
-        	"description" : "une description comme les autres",
-        	"keySuccess" : "succès",
-        	"beginning" : "2017-10-20",
-        	"location" : "Nantes",
-        	"status": "Open",
-        	"price" : 300
-        })
-      })
+        body: JSON.stringify(obj)
+      })*/
 
     }
-
+    const listCustomer = this.state.listCompany;
     return (
       <div className="add-component">
         <div className="add-title">New proposal</div>
           <div className="add-content">
-            <div className="add-line"><span>Customer:*</span> <input type="text" name="proposalCompany" value={this.state.proposalCompany} onChange={(e) => this.handleChange(e)}/></div>
+            <div className="add-line"><span>Customer:*</span>
+              <select name="proposalCompany" value={this.state.proposalCompany} onChange={(e) => this.handleChange(e)}>
+                {listCustomer.map(function(customer, index){
+                    return (
+                      <option value={customer.siret}>{customer.company}</option>
+                    );
+                  }
+                )}
+              </select>
+            </div>
             <div className="add-line"><span>Title:*</span> <input type="text" name="proposalTitle" value={this.state.proposalTitle} onChange={(e) => this.handleChange(e)}/></div>
             <div className="add-line"><span>Description:</span> <input type="text" name="proposalDescription" value={this.state.proposalDescription} onChange={(e) => this.handleChange(e)}/></div>
             <div className="add-line"><span>3 Factors:</span></div>

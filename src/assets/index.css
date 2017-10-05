@@ -606,6 +606,18 @@ header{
   letter-spacing: 0.05em;
   width: 150px;
 }
+.add-content select{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border: 0;
+  outline: none;
+  font-weight: bold;
+  font-size:0.7em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(14, 148, 86, 0.39);
+}
 
 .add-content input[type="text"]{
   margin-left: 5px;
