@@ -107,7 +107,7 @@ class addComponent extends Component {
             <span>Price:</span> <input type="number" name="opPrice" value={this.state.opPrice} onChange={(e) => this.handleChange(e)}/> <span>Euros</span><br/>
             <div className="add-line"><span>OP Mail:</span> <input type="text" name="opEmail" value={this.state.opEmail} onChange={(e) => this.handleChange(e)}/></div><br/>
           </div>
-        <button onClick={()=>{addNewProposal()}}>Ok</button>
+        <button className="validate-button" onClick={()=>{addNewProposal()}}></button>
       </div>
     );
   }
