@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class listComponent extends Component {
+class listCustomerComponent extends Component {
   constructor(props) {
     super(props);
     this.state = props.state;
@@ -17,21 +17,18 @@ class listComponent extends Component {
     return (
       <div className="list-component">
         <ul>
-          {listApplications.map(function(need, index){
+          {listApplications.map(function(customer, index){
               return (
                 <li key= {index} onClick={() => { showDetail(index)}}>
-                  <div className="need-list-top">
-                    <p>{need.Date_demande}</p>
-                    <p>-</p>
-                    <p>{need.Entreprise}</p>
+                  <div className="customer-list-top">
+                    <p>{customer.company}</p>
                   </div>
-                  <div className="need-list-middle">
-                    <p>{need.Titre_demande}</p>
-                    <p className={need.Statut === "Win" ? "need-list-status win" : need.Statut === "Lose" ? "need-list-status lose" : "need-list-status"}>{need.Statut}</p>
+                  <div className="customer-list-middle">
+                    <p>{customer.contact}</p>
                   </div>
-                  <div className="need-list-bottom">
+                  <div className="customer-list-bottom">
                     <p>
-                      {need.Localisation}
+                      {customer.phone} - {customer.mail}
                     </p>
                   </div>
                 </li>
@@ -43,4 +40,4 @@ class listComponent extends Component {
   }
 }
 
-export default listComponent;
+export default listCustomerComponent;

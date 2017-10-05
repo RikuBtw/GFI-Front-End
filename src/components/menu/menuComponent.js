@@ -28,8 +28,8 @@ class menuComponent extends Component {
          return(
               <div className="menu-open-helper">
                 <div className="menu-open-container">
-                  <p onClick={() => {changeApp("planning")}}>My Plannings</p>
-                  <p onClick={() => {changeApp("need")}}>My Proposals</p>
+                  <p onClick={() => {changeApp("customer")}}>All Gfi Clients</p>
+                  <p onClick={() => {changeApp("proposal")}}>My Proposals</p>
                   <p onClick={() => {changeApp("result")}}>My Results</p>
                   <p onClick={() => {disconnect()}}>Log Out</p>
                 </div>
@@ -45,8 +45,8 @@ class menuComponent extends Component {
         if (this.state.menuPresent) {
           return(
             <nav className="menu-nav">
-              <span className={this.state.appType === "planning" ? "selected" : ""} onClick={() => {changeApp("planning")}}>My Plannings</span>
-              <span className={this.state.appType === "need" ? "selected" : ""} onClick={() => {changeApp("need")}}>My Proposals</span>
+              <span className={this.state.appType === "customer" ? "selected" : ""} onClick={() => {changeApp("customer")}}>All Gfi Clients</span>
+              <span className={this.state.appType === "proposal" ? "selected" : ""} onClick={() => {changeApp("proposal")}}>My Proposals</span>
               <span className={this.state.appType === "result" ? "selected" : ""} onClick={() => {changeApp("result")}}>My Results</span>
             </nav>
           );
@@ -59,7 +59,6 @@ class menuComponent extends Component {
     return(
         <header>
           <div className="menu-button-container">
-            <div className="menu-title">Remember Meet</div>
             <button id="menu-button" onClick={() => {triggerMenu()}}></button>
             <Showmenu />
           </div>

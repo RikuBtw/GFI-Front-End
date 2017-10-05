@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import Login from '../components/login/loginComponent';
-import Need from './needContainer';
+import Proposal from './proposalContainer';
 import Loading from '../components/loading/loadingComponent';
 import Menu from '../components/menu/menuComponent';
-import Add from '../components/add/addComponent'
+import Add from '../components/add/addComponent';
+import Customer from './customerContainer';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {appType: "need", menuPresent: true};
+    this.state = {appType: "proposal", menuPresent: true};
   }
 
   onChildChanged(newType) {
@@ -29,21 +30,21 @@ class App extends Component {
         return <Login />;
       }
       switch (this.state.appType) {
-        case "planning":
+        case "customer":
           return (
             <div>
               <Menu state={this.state}
                       callbackParent={(newType) => this.onChildChanged(newType)}/>
-              <button className="add-button" onClick={() => {changeApp("add")}}></button>
+              <Customer />
             </div>
           );
           break;
-        case "need":
+        case "proposal":
           return (
             <div>
               <Menu state={this.state}
                       callbackParent={(newType) => this.onChildChanged(newType)}/>
-              <Need />
+              <Proposal />
               <button className="add-button" onClick={() => {changeApp("add")}}></button>
             </div>
           );
@@ -54,7 +55,6 @@ class App extends Component {
               <Menu state={this.state}
                       callbackParent={(newType) => this.onChildChanged(newType)}/>
               <div className="img-stats-mockup"></div>
-              <button className="add-button" onClick={() => {changeApp("add")}}></button>
             </div>
           );
           break;
@@ -70,15 +70,6 @@ class App extends Component {
         default:
           return (
             <div>
-              <Menu state={this.state}
-                    callbackParent={(newType) => this.onChildChanged(newType)}/>
-              <div>
-                <span onClick={() => {changeApp("planning")}}>Mes rendez-vous</span>
-                <span onClick={() => {changeApp("need")}}>Mes demandes</span>
-                <span onClick={() => {changeApp("result")}}>Mes résultats</span>
-              </div>
-              <div />;
-              <button onClick={() => {changeApp("add")}}>+</button>
             </div>
           );
       }
